@@ -1,0 +1,8 @@
+df1 <- read.csv('~/PPL_work/alignment/emo_survey/data_analysis_etc/data/generated/aestheticRatings_v2.csv')
+df2 <- read.csv('~/PPL_work/alignment/emo_survey/data_analysis_etc/data/generated/longdata_v4.csv')
+align_rating <- aggregate(df2$rating, list(df2$stimulus_filename), mean)
+colnames(align_rating) <- c("filename", "mean_align_rating")
+aes_rating <- aggregate(df1$rating, list(df1$stimulus_filename), mean)
+colnames(aes_rating) <- c("filename", "mean_aes_rating")
+df_comb <- merge(align_rating, aes_rating, by="filename")
+print (cor(df_comb$mean_aes_rating, df_comb$mean_align_rating))
